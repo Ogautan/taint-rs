@@ -16,7 +16,7 @@ use rustc_middle::{
     ty::{TyCtxt, TyKind},
 };
 
-use rustc_mir_dataflow::{Analysis, AnalysisDomain, Forward, CallReturnPlaces};
+use rustc_mir_dataflow::{Analysis, AnalysisDomain, CallReturnPlaces, Forward};
 use rustc_span::Span;
 
 use tracing::instrument;
@@ -371,8 +371,14 @@ where
                 false
             }
         }) {
-            struct_span_err!(self.tcx.sess, *span, T0001, "function `{}` received tainted input", name)
-                .emit();
+            struct_span_err!(
+                self.tcx.sess,
+                *span,
+                T0001,
+                "function `{}` received tainted input",
+                name
+            )
+            .emit();
         }
     }
 }

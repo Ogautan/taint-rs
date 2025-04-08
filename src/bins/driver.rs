@@ -111,7 +111,6 @@ fn mir_analysis(tcx: TyCtxt) {
     if let Some((entry_def_id, _)) = tcx.entry_fn(()) {
         main::eval_main(tcx, entry_def_id);
     } else {
-        tcx.sess.struct_err("no main function found").emit();
-        tcx.sess.abort_if_errors();
+        main::eval_all_pub_fn(tcx);
     }
 }
